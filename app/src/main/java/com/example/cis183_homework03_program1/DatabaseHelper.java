@@ -1,6 +1,8 @@
 package com.example.cis183_homework03_program1;
 
 import android.content.Context;
+import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -28,8 +30,115 @@ public class DatabaseHelper extends SQLiteOpenHelper
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1)
+    public void onUpgrade(SQLiteDatabase db, int i, int i1)
     {
+        //Drop old tables
+        db.execSQL("DROP TABLE IF EXISTS " + majors_table_name + ";");
+        db.execSQL("DROP TABLE IF EXISTS " + students_table_name + ";");
 
+        //Call onCreate to make new tables
+        onCreate(db);
+    }
+
+    public String getMajorsDbName()
+    {
+        return majors_table_name;
+    }
+
+    public String getStudentDbName()
+    {
+        return students_table_name;
+    }
+
+    public void initAllTables()
+    {
+        initMajors();
+        initStudents();
+    }
+
+    public int countTableRecords(String tablename)
+    {
+        //Pull a readable version of the database
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        //Count the number of entries for the table
+        int numRows = (int) DatabaseUtils.queryNumEntries(db, tablename);
+
+        //Close the database
+        db.close();
+
+        //Return the query data
+        return numRows;
+    }
+
+    //Insert dummy data for Majors
+    public void initMajors()
+    {
+        //Check if no data exists on the table for the database
+        if (countTableRecords(majors_table_name) == 0)
+        {
+            //Pull a writeable version of the database
+            SQLiteDatabase db = this.getWritableDatabase();
+
+            //Insert the dummy data
+            db.execSQL("INSERT INTO " + majors_table_name + "(majorPrefix, majorName) VALUES ('CIS', 'Computer Science');");
+            db.execSQL("INSERT INTO " + majors_table_name + "(majorPrefix, majorName) VALUES ('BUS', 'Business');");
+            db.execSQL("INSERT INTO " + majors_table_name + "(majorPrefix, majorName) VALUES ('CIS', 'Data Analytics');");
+            db.execSQL("INSERT INTO " + majors_table_name + "(majorPrefix, majorName) VALUES ('ACCT', 'Accounting');");
+            db.execSQL("INSERT INTO " + majors_table_name + "(majorPrefix, majorName) VALUES ('LAW', 'Paralegal');");
+            db.execSQL("INSERT INTO " + majors_table_name + "(majorPrefix, majorName) VALUES ('CRJ', 'Criminal Justice');");
+
+            //close the database
+            db.close();
+        }
+    }
+
+    //Insert dummy data for Students
+    public void initStudents()
+    {
+        //Check if no data exists on the table for the database
+        if (countTableRecords(students_table_name) == 0)
+        {
+            //Pull a writeable version of the database
+            SQLiteDatabase db = this.getWritableDatabase();
+
+            //Insert the dummy data
+            db.execSQL("INSERT INTO " + majors_table_name + "(username, email, fname, lname, age, gpa, MajorId) VALUES ('tmcbride2', 'tmcbride@my.monroeccc.edu', 'Tyler', 'McBride', '33', '3.1', '1');");
+
+            //close the database
+            db.close();
+        }
+
+    }
+
+    //Check if the username exists
+    public boolean usernameExists(String username)
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String checkUsername = "SELECT count(username) FROM " + students_table_name + "WHERE username = '" + username + "';";
+
+        //Query
+        Cursor cursor = db.rawQuery(checkUsername,null);
+
+        //Move the cursor to the first returned value (first row)
+        cursor.moveToFirst();
+
+        //We are looking for the username column, which is 0 since it is in the first column
+        //of the table
+        int count = cursor.getInt(0);
+
+        //Close the database
+        db.close();
+
+        //If the count is anything but 0 then the username exists....
+        if (count != 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }
