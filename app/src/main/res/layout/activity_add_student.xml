@@ -7,6 +7,17 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <Button
+        android:id="@+id/btn_v_addstudent_enroll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginBottom="49dp"
+        android:text="Enroll"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintStart_toStartOf="@+id/sp_v_addstudent_major" />
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
         android:layout_width="0dp"
@@ -21,7 +32,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="24dp"
-        android:layout_marginBottom="17dp"
+        android:layout_marginBottom="18dp"
         android:background="#861CBC"
         android:gravity="center|left"
         android:text="Enrollr"
@@ -43,22 +54,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/btn_v_details_update"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginBottom="49dp"
-        android:text="Enroll"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
-        app:layout_constraintStart_toStartOf="@+id/sp_v_addstudent_major" />
-
     <EditText
         android:id="@+id/et_v_addstudent_fname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="12dp"
+        android:layout_marginEnd="10dp"
         android:ems="10"
         android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
@@ -69,8 +69,8 @@
         android:id="@+id/textView9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginStart="29dp"
+        android:layout_marginEnd="11dp"
         android:layout_marginBottom="10dp"
         android:text="Email:"
         android:textSize="16sp"
@@ -123,7 +123,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="184dp"
-        android:layout_marginEnd="5dp"
+        android:layout_marginEnd="3dp"
         android:ems="10"
         android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
@@ -176,7 +176,7 @@
         android:id="@+id/et_v_addstudent_lname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="11dp"
+        android:layout_marginEnd="10dp"
         android:ems="10"
         android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
@@ -200,7 +200,7 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="7dp"
         android:text="Last Name:"
         android:textSize="16sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/et_v_addstudent_lname"
