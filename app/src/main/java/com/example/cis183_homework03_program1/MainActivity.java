@@ -4,15 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ListView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -35,7 +31,10 @@ public class MainActivity extends AppCompatActivity
 
         //Connect JAVA to GUI
         lv_j_main_listOfStudents = findViewById(R.id.lv_v_main_students);
-        bnv_j_main_bottomNav = findViewById(R.id.bottomNavigationView);
+        bnv_j_main_bottomNav = findViewById(R.id.bnv_v_main_bottomNav);
+
+        //Set the nav bar icon
+        bnv_j_main_bottomNav.setSelectedItemId(R.id.nav_home);
 
         //Make a new instance of the database
         dbHelper = new DatabaseHelper(this);
