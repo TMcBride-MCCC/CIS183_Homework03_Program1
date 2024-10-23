@@ -5,6 +5,9 @@ import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+
+import java.util.ArrayList;
 
 public class DatabaseHelper extends SQLiteOpenHelper
 {
@@ -103,7 +106,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
             SQLiteDatabase db = this.getWritableDatabase();
 
             //Insert the dummy data
-            db.execSQL("INSERT INTO " + majors_table_name + "(username, email, fname, lname, age, gpa, MajorId) VALUES ('tmcbride2', 'tmcbride@my.monroeccc.edu', 'Tyler', 'McBride', '33', '3.1', '1');");
+            db.execSQL("INSERT INTO " + students_table_name + "(username, email, fname, lname, age, gpa, MajorId) VALUES ('tmcbride2', 'tmcbride@my.monroeccc.edu', 'Tyler', 'McBride', '33', '3.1', '1');");
 
             //close the database
             db.close();
@@ -140,5 +143,86 @@ public class DatabaseHelper extends SQLiteOpenHelper
         {
             return false;
         }
+    }
+
+    //Pull Student Data
+    public void getAllStudentDataGivenUsername(String username)
+    {
+        Student student = null;
+
+        if (usernameExists(username))
+        {
+            student = new Student();
+
+            //Query to get info
+            String selectQuery = "SELECT * FROM " + students_table_name + " WHERE username = '" + username + "';";
+
+            //pull a readable database
+            SQLiteDatabase db = this.getReadableDatabase();
+
+            Cursor cursor = db.rawQuery(selectQuery,null);
+
+            if (cursor != null)
+            {
+                //Move the cursor to the first row returned
+                cursor.moveToFirst();
+
+                //Set the info
+                student.setUsername(cursor.getString(0));
+                student.setEmail(cursor.getString(1));
+                student.setfName(cursor.getString(2));
+                student.setlName(cursor.getString(3));
+                student.setAge(cursor.getInt(4));
+                student.setGpa(cursor.getFloat(5));
+                student.setMajorId(cursor.getInt(6));
+            }
+            else
+            {
+                Log.d("ERROR: ","The user does not exist");
+            }
+        }
+    }
+
+    public ArrayList<Student> fillArrayList()
+    {
+        //Make a new arraylist
+        ArrayList<Student> listOfStudents = new ArrayList<>();
+
+        //Get a readable database copy
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        //Query
+        String selectQuery = "SELECT * FROM " + students_table_name;
+        Cursor cursor = db.rawQuery(selectQuery,null);
+
+        if (cursor !=null)
+        {
+            //Move the cursor
+            cursor.moveToFirst();
+            for (int i = 0; i < cursor.getCount(); i++)
+            {
+                //Make a new student memory chunk
+                Student student = new Student();
+
+                //Set the info
+                student.setUsername(cursor.getString(0));
+                student.setEmail(cursor.getString(1));
+                student.setfName(cursor.getString(2));
+                student.setlName(cursor.getString(3));
+                student.setAge(cursor.getInt(4));
+                student.setGpa(cursor.getFloat(5));
+                student.setMajorId(cursor.getInt(6));
+
+                //Add the student
+                listOfStudents.add(student);
+
+                //Move the cursor
+                cursor.moveToNext();
+            }
+        }
+        //Close the database
+        db.close();
+
+        return listOfStudents;
     }
 }
