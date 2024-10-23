@@ -1,5 +1,6 @@
 package com.example.cis183_homework03_program1;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -79,6 +80,7 @@ public class MainActivity extends AppCompatActivity
                 else if (navItem == R.id.nav_addStudent)
                 {
                     Log.d("NAV ", "Add Student button clicked");
+                    startActivity(new Intent(MainActivity.this,AddStudent.class));
                 }
                 else if (navItem == R.id.nav_addMajor)
                 {
