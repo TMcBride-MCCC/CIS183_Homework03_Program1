@@ -90,6 +90,7 @@ public class MainActivity extends AppCompatActivity
                 else if (navItem == R.id.nav_searchStudents)
                 {
                     Log.d("NAV ", "Search button clicked");
+                    startActivity(new Intent(MainActivity.this,StudentSearch.class));
                 }
 
                 return false;
