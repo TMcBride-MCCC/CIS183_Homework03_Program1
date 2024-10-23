@@ -11,7 +11,7 @@
         android:id="@+id/btn_v_addmajor_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="80dp"
+        android:layout_marginBottom="48dp"
         android:text="Back"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/bnv_v_addmajor_bottomNav"

@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -27,11 +28,13 @@ public class StudentSearch extends AppCompatActivity
     EditText et_j_studentsearch_fname;
     EditText et_j_studentsearch_lname;
     Spinner sp_j_studentsearch_major;
+    RadioGroup rg_j_studentsearch_radioGroup;
     RadioButton rb_j_studentsearch_specificGPA;
     RadioButton rb_j_studentsearch_rangeGPA;
     TextView tv_j_studentsearch_specificGPA;
     TextView tv_j_studentsearch_minGPA;
     TextView tv_j_studentsearch_maxGPA;
+    TextView tv_j_studentsearch_minMaxDash;
     EditText et_j_studentsearch_specificGPA;
     EditText et_j_studentsearch_minGPA;
     EditText et_j_studentsearch_maxGPA;
@@ -53,12 +56,14 @@ public class StudentSearch extends AppCompatActivity
         et_j_studentsearch_lname = findViewById(R.id.et_v_studentsearch_lname);
         sp_j_studentsearch_major = findViewById(R.id.sp_v_studentsearch_major);
         //Radio buttons
+        rg_j_studentsearch_radioGroup = findViewById(R.id.rg_v_studentsearch_radioGroup);
         rb_j_studentsearch_specificGPA = findViewById(R.id.rb_v_studentsearch_specificGPA);
         rb_j_studentsearch_rangeGPA = findViewById(R.id.rb_v_studentsearch_rangeGPA);
         //Textviews
         tv_j_studentsearch_specificGPA = findViewById(R.id.tv_v_studentsearch_specificGPA);
         tv_j_studentsearch_minGPA = findViewById(R.id.tv_v_studentsearch_minGPA);
         tv_j_studentsearch_maxGPA = findViewById(R.id.tv_v_studentsearch_maxGPA);
+        tv_j_studentsearch_minMaxDash = findViewById(R.id.tv_v_studentsearch_minMaxDash);
         //Edittexts
         et_j_studentsearch_specificGPA = findViewById(R.id.et_v_studentsearch_specificGPA);
         et_j_studentsearch_minGPA = findViewById(R.id.et_v_studentsearch_minGPA);
@@ -75,10 +80,12 @@ public class StudentSearch extends AppCompatActivity
         tv_j_studentsearch_specificGPA.setVisibility(View.INVISIBLE);
         tv_j_studentsearch_minGPA.setVisibility(View.INVISIBLE);
         tv_j_studentsearch_maxGPA.setVisibility(View.INVISIBLE);
-
+        tv_j_studentsearch_minMaxDash.setVisibility(View.INVISIBLE);
 
         //Set GPA et to not visible
-
+        et_j_studentsearch_specificGPA.setVisibility(View.INVISIBLE);
+        et_j_studentsearch_minGPA.setVisibility(View.INVISIBLE);
+        et_j_studentsearch_maxGPA.setVisibility(View.INVISIBLE);
 
         bottomNavListener();
         radioButtonListener();
@@ -122,6 +129,39 @@ public class StudentSearch extends AppCompatActivity
 
     private void radioButtonListener()
     {
-        
+        rg_j_studentsearch_radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
+        {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i)
+            {
+                if (rb_j_studentsearch_specificGPA.isChecked())
+                {
+                    //Set the opposite to invisible
+                    tv_j_studentsearch_minGPA.setVisibility(View.INVISIBLE);
+                    tv_j_studentsearch_maxGPA.setVisibility(View.INVISIBLE);
+                    et_j_studentsearch_minGPA.setVisibility(View.INVISIBLE);
+                    et_j_studentsearch_maxGPA.setVisibility(View.INVISIBLE);
+                    tv_j_studentsearch_minMaxDash.setVisibility(View.INVISIBLE);
+
+
+                    //Set the corresponding items to visible
+                    tv_j_studentsearch_specificGPA.setVisibility(View.VISIBLE);
+                    et_j_studentsearch_specificGPA.setVisibility(View.VISIBLE);
+
+                } else if (rb_j_studentsearch_rangeGPA.isChecked())
+                {
+                    //Set the opposite to invisible
+                    tv_j_studentsearch_specificGPA.setVisibility(View.INVISIBLE);
+                    et_j_studentsearch_specificGPA.setVisibility(View.INVISIBLE);
+
+                    //Set the corresponding items to visible
+                    tv_j_studentsearch_minGPA.setVisibility(View.VISIBLE);
+                    tv_j_studentsearch_maxGPA.setVisibility(View.VISIBLE);
+                    et_j_studentsearch_minGPA.setVisibility(View.VISIBLE);
+                    et_j_studentsearch_maxGPA.setVisibility(View.VISIBLE);
+
+                }
+            }
+        });
     }
 }
