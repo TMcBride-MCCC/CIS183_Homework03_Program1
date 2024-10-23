@@ -1,20 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:title="Home"
+        android:id="@+id/nav_home"
         android:icon="@drawable/baseline_home_24"
-        android:id="@+id/home"/>
+        android:title="Home"
+        app:showAsAction ="ifRoom"/>
     <item
-        android:title="AddStudent"
+        android:id="@+id/nav_addStudent"
         android:icon="@drawable/baseline_person_add_24"
-        android:id="@+id/addStudent"/>
+        android:title="Add Student"
+        app:showAsAction ="ifRoom" />
     <item
-        android:title="AddMajor"
+        android:id="@+id/nav_addMajor"
         android:icon="@drawable/baseline_add_24"
-        android:id="@+id/addMajor"/>
+        android:title="Add Major"
+        app:showAsAction ="ifRoom" />
     <item
-        android:title="SearchStudents"
+        android:id="@+id/nav_searchStudents"
         android:icon="@drawable/baseline_person_search_24"
-        android:id="@+id/searchStudents"/>
+        android:title="Search Students"
+        app:showAsAction ="ifRoom"/>
 </menu>
