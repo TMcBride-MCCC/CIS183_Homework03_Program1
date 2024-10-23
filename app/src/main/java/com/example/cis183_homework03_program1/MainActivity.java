@@ -85,6 +85,7 @@ public class MainActivity extends AppCompatActivity
                 else if (navItem == R.id.nav_addMajor)
                 {
                     Log.d("NAV ", "Add Major button clicked");
+                    startActivity(new Intent(MainActivity.this,AddMajor.class));
                 }
                 else if (navItem == R.id.nav_searchStudents)
                 {

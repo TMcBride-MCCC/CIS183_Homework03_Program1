@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/tv_v_studentsearch_specificGPA"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="GPA"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toTopOf="@+id/et_v_studentsearch_specificGPA"
+        app:layout_constraintStart_toStartOf="@+id/et_v_studentsearch_specificGPA" />
+
+    <TextView
+        android:id="@+id/tv_v_studentsearch_maxGPA"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="19dp"
+        android:layout_marginBottom="268dp"
+        android:text="max GPA"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/btn_v_studentsearch_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="52dp"
+        android:text="Search"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="97dp"
+        android:layout_marginTop="11dp"
+        android:layout_marginEnd="10dp"
+        android:text="GPA:"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/radioGroup"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/radioGroup" />
+
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="8dp"
+        android:text="Username:"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/et_v_studentsearch_username"
+        app:layout_constraintEnd_toEndOf="@+id/textView17" />
+
+    <Spinner
+        android:id="@+id/sp_v_studentsearch_major"
+        android:layout_width="0dp"
+        android:layout_height="22dp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textView15"
+        app:layout_constraintEnd_toEndOf="@+id/et_v_studentsearch_lname"
+        app:layout_constraintStart_toStartOf="@+id/et_v_studentsearch_lname" />
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="13dp"
+        android:layout_marginEnd="9dp"
+        android:text="Major:"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/sp_v_studentsearch_major"
+        app:layout_constraintTop_toBottomOf="@+id/et_v_studentsearch_lname" />
+
+    <TextView
+        android:id="@+id/textView16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="Last Name:"
+        android:textSize="16sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/et_v_studentsearch_lname"
+        app:layout_constraintEnd_toStartOf="@+id/et_v_studentsearch_lname" />
+
+    <EditText
+        android:id="@+id/et_v_studentsearch_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="184dp"
+        android:ems="10"
+        android:inputType="text"
+        app:layout_constraintStart_toEndOf="@+id/textView14"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/et_v_studentsearch_lname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        app:layout_constraintStart_toStartOf="@+id/et_v_studentsearch_fname"
+        app:layout_constraintTop_toBottomOf="@+id/et_v_studentsearch_fname" />
+
+    <TextView
+        android:id="@+id/textView17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="51dp"
+        android:text="First Name:"
+        android:textSize="16sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/et_v_studentsearch_fname"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/et_v_studentsearch_fname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        app:layout_constraintStart_toStartOf="@+id/et_v_studentsearch_username"
+        app:layout_constraintTop_toBottomOf="@+id/et_v_studentsearch_username" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_nav_menu" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="17dp"
+        android:background="#861CBC"
+        android:gravity="center|left"
+        android:text="Enrollr"
+        android:textColor="#FFFFFF"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginBottom="37dp"
+        android:text="Student Findr"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/et_v_studentsearch_username"
+        app:layout_constraintStart_toEndOf="@+id/textView14" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="31dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="30dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_v_studentsearch_maxGPA"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView13"
+        app:layout_constraintTop_toBottomOf="@+id/sp_v_studentsearch_major">
+
+        <RadioButton
+            android:id="@+id/rb_v_studentsearch_specificGPA"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="GPA Specific"
+            android:textAlignment="textStart"
+            android:textSize="12sp" />
+
+        <RadioButton
+            android:id="@+id/rb_v_studentsearch_rangeGPA"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="GPA Range"
+            android:textSize="12sp" />
+    </RadioGroup>
+
+    <EditText
+        android:id="@+id/et_v_studentsearch_minGPA"
+        android:layout_width="40dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="13dp"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        app:layout_constraintBottom_toBottomOf="@+id/et_v_studentsearch_specificGPA"
+        app:layout_constraintEnd_toStartOf="@+id/tv_v_studentsearch_minMaxDash"
+        app:layout_constraintStart_toEndOf="@+id/btn_v_studentsearch_search"
+        app:layout_constraintTop_toBottomOf="@+id/tv_v_studentsearch_minGPA" />
+
+    <EditText
+        android:id="@+id/et_v_studentsearch_maxGPA"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        app:layout_constraintBottom_toBottomOf="@+id/et_v_studentsearch_minGPA"
+        app:layout_constraintEnd_toEndOf="@+id/tv_v_studentsearch_maxGPA"
+        app:layout_constraintStart_toStartOf="@+id/tv_v_studentsearch_maxGPA"
+        app:layout_constraintTop_toBottomOf="@+id/tv_v_studentsearch_maxGPA" />
+
+    <TextView
+        android:id="@+id/tv_v_studentsearch_minGPA"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="min GPA"
+        android:textSize="10sp"
+        app:layout_constraintStart_toStartOf="@+id/et_v_studentsearch_minGPA"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+
+    <TextView
+        android:id="@+id/tv_v_studentsearch_minMaxDash"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="31dp"
+        android:layout_marginEnd="16dp"
+        android:text="-"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/et_v_studentsearch_maxGPA"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+
+    <EditText
+        android:id="@+id/et_v_studentsearch_specificGPA"
+        android:layout_width="40dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="69dp"
+        android:layout_marginTop="45dp"
+        android:layout_marginEnd="71dp"
+        android:layout_marginBottom="43dp"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        app:layout_constraintBottom_toTopOf="@+id/btn_v_studentsearch_search"
+        app:layout_constraintEnd_toStartOf="@+id/et_v_studentsearch_minGPA"
+        app:layout_constraintStart_toStartOf="@+id/textView13"
+        app:layout_constraintTop_toBottomOf="@+id/textView13" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
