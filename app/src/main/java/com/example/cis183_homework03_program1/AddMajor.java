@@ -60,21 +60,21 @@ public class AddMajor extends AppCompatActivity
                 {
                     Log.d("NAV ", "Home button clicked");
                     startActivity(new Intent(AddMajor.this, MainActivity.class));
+                    return true;
                 } else if (navItem == R.id.nav_addStudent)
                 {
                     Log.d("NAV ", "Add Student button clicked");
                     startActivity(new Intent(AddMajor.this, AddStudent.class));
-
+                    return true;
                 } else if (navItem == R.id.nav_addMajor)
                 {
                     Log.d("NAV ", "Add Major button clicked");
-                    startActivity(new Intent(AddMajor.this, AddMajor.class));
-
+                    return true;
                 } else if (navItem == R.id.nav_searchStudents)
                 {
                     Log.d("NAV ", "Search button clicked");
                     startActivity(new Intent(AddMajor.this, StudentSearch.class));
-
+                    return true;
                 }
 
                 return false;

@@ -1,6 +1,8 @@
 package com.example.cis183_homework03_program1;
 
-public class Student
+import java.io.Serializable;
+
+public class Student implements Serializable
 {
     String username;
     String email;

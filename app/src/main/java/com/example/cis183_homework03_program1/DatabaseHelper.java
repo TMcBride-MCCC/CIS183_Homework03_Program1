@@ -183,7 +183,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
         }
     }
 
-    public ArrayList<Student> fillArrayList()
+    public ArrayList<Student> fillStudentArrayList()
     {
         //Make a new arraylist
         ArrayList<Student> listOfStudents = new ArrayList<>();
@@ -225,4 +225,5 @@ public class DatabaseHelper extends SQLiteOpenHelper
 
         return listOfStudents;
     }
+
 }

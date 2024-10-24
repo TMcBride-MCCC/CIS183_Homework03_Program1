@@ -7,6 +7,18 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <Button
+        android:id="@+id/btn_v_details_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="100dp"
+        android:text="Back"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/bnv_v_details_bottomNav"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <TextView
         android:id="@+id/textView18"
         android:layout_width="wrap_content"
@@ -174,6 +186,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="160dp"
         android:text="Update"
+        android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/bnv_v_details_bottomNav"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

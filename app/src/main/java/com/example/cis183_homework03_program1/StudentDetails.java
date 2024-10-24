@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -26,7 +27,12 @@ public class StudentDetails extends AppCompatActivity
     TextView tv_j_details_gpa;
     TextView tv_j_details_major;
     Button btn_j_details_update;
+    Button btn_j_details_back;
     BottomNavigationView bnv_j_details_bottomNav;
+
+    //DatabaseHelper dbHelper;
+    Student student;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -42,17 +48,21 @@ public class StudentDetails extends AppCompatActivity
         tv_j_details_gpa = findViewById(R.id.tv_v_details_gpa);
         tv_j_details_major = findViewById(R.id.tv_v_details_major);
         btn_j_details_update = findViewById(R.id.btn_v_details_update);
+        btn_j_details_back = findViewById(R.id.btn_v_details_back);
         bnv_j_details_bottomNav = findViewById(R.id.bnv_v_details_bottomNav);
 
-        //Set the nav bar icon
-        //I don't think I can set this or it will change the activity?
-        //Check later
-        //bnv_j_details_bottomNav.setSelectedItemId(R.id.nav_addStudent);
+        //dbHelper = new DatabaseHelper(this);
+
+        //Grab the Student info
+        Intent intent = getIntent();
+        student = (Student) intent.getSerializableExtra("student");
 
         bottomNavListener();
-
-
         updateButtonOnClickListener();
+        backButtonOnClickListener();
+
+        //Fill in student info
+        loadStudentData();
 
     }
 
@@ -69,24 +79,25 @@ public class StudentDetails extends AppCompatActivity
                 {
                     Log.d("NAV ", "Home button clicked");
                     startActivity(new Intent(StudentDetails.this,MainActivity.class));
+                    return true;
                 }
                 else if (navItem == R.id.nav_addStudent)
                 {
                     Log.d("NAV ", "Add Student button clicked");
                     startActivity(new Intent(StudentDetails.this,AddStudent.class));
-
+                    return true;
                 }
                 else if (navItem == R.id.nav_addMajor)
                 {
                     Log.d("NAV ", "Add Major button clicked");
                     startActivity(new Intent(StudentDetails.this,AddMajor.class));
-
+                    return true;
                 }
                 else if (navItem == R.id.nav_searchStudents)
                 {
                     Log.d("NAV ", "Search button clicked");
                     startActivity(new Intent(StudentDetails.this,StudentSearch.class));
-
+                    return true;
                 }
 
                 return false;
@@ -97,6 +108,36 @@ public class StudentDetails extends AppCompatActivity
     private void updateButtonOnClickListener()
     {
         //Go to update page
+    }
+
+    private void backButtonOnClickListener()
+    {
+        btn_j_details_back.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                startActivity(new Intent(StudentDetails.this, MainActivity.class));
+            }
+        });
+    }
+
+    private void loadStudentData()
+    {
+        String username = student.getUsername();
+        String fname = student.getfName();
+        String lname = student.getlName();
+        String email = student.getEmail();
+        int age = student.getAge();;
+        float gpa = student.getGpa();;
+        int major = student.getMajorId();
+
+        tv_j_details_username.setText(username);
+        tv_j_details_name.setText(fname + " " + lname);
+        tv_j_details_email.setText(email);
+        tv_j_details_age.setText(String.valueOf(age));
+        tv_j_details_gpa.setText(String.valueOf(gpa));
+        tv_j_details_major.setText(String.valueOf(major));
     }
 
 

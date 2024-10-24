@@ -65,24 +65,24 @@ public class AddStudent extends AppCompatActivity
                 {
                     Log.d("NAV ", "Home button clicked");
                     startActivity(new Intent(AddStudent.this,MainActivity.class));
+                    return true;
                 }
                 else if (navItem == R.id.nav_addStudent)
                 {
                     Log.d("NAV ", "Add Student button clicked");
-                    startActivity(new Intent(AddStudent.this,AddStudent.class));
-
+                    return true;
                 }
                 else if (navItem == R.id.nav_addMajor)
                 {
                     Log.d("NAV ", "Add Major button clicked");
                     startActivity(new Intent(AddStudent.this,AddMajor.class));
-
+                    return true;
                 }
                 else if (navItem == R.id.nav_searchStudents)
                 {
                     Log.d("NAV ", "Search button clicked");
                     startActivity(new Intent(AddStudent.this,StudentSearch.class));
-
+                    return true;
                 }
 
                 return false;
