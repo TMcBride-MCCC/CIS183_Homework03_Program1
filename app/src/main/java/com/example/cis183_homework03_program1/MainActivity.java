@@ -134,11 +134,17 @@ public class MainActivity extends AppCompatActivity
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l)
             {
+                //Remove student from db
                 Student selectedStudent = listOfStudents.get(i);
-                intent_j_main_StudentDetails = new Intent(MainActivity.this,StudentDetails.class);
-                intent_j_main_StudentDetails.putExtra("student", selectedStudent);
-                startActivity(intent_j_main_StudentDetails);
+                dbHelper.deleteStudentFromDb(selectedStudent);
+
+                //Remove student from list
+                listOfStudents.remove(i);
+                adapter_home.notifyDataSetChanged();
+
+                return true;
             }
         });
+
     }
 }

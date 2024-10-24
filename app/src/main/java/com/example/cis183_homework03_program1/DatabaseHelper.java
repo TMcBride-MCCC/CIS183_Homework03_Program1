@@ -415,9 +415,8 @@ public class DatabaseHelper extends SQLiteOpenHelper
         //Get a writeable db version
         SQLiteDatabase db = this.getWritableDatabase();
 
-        //SQL INSERT statement
-        db.execSQL("DELETE FROM " + students_table_name + " (username, email, fname, lname, age, gpa, majorId) VALUES ('" + s.getUsername() + "','" + s.getEmail() + "','" + s.getfName() + "','" + s.getlName() + "','" + s.getAge() + "','" + s.getGpa() + "','" + s.getMajorId() + "');");
-
+        //SQL DELETE statement
+        db.execSQL("DELETE FROM " + students_table_name + " WHERE username = '" + s.getUsername() + "';");
         //Close the db
         db.close();
     }
