@@ -1,7 +1,10 @@
 package com.example.cis183_homework03_program1;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -9,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -33,6 +37,8 @@ public class AddStudent extends AppCompatActivity
     Button btn_j_addstudent_enroll;
     BottomNavigationView bnv_j_addstudent_bottomNav;
     DatabaseHelper db;
+    boolean usernameTaken = false;
+    TextView tv_j_addstudent_usernameExists;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -52,6 +58,7 @@ public class AddStudent extends AppCompatActivity
         btn_j_addstudent_enroll = findViewById(R.id.btn_v_addstudent_enroll);
         bnv_j_addstudent_bottomNav = findViewById(R.id.bnv_v_addstudent_bottomNav);
         db = new DatabaseHelper(this);
+        tv_j_addstudent_usernameExists = findViewById(R.id.tv_v_addstudent_usernameExists);
 
         //Set the nav bar icon
         bnv_j_addstudent_bottomNav.setSelectedItemId(R.id.nav_addStudent);
@@ -61,6 +68,7 @@ public class AddStudent extends AppCompatActivity
         sp_j_addstudent_major.setAdapter(adapter);
 
         bottomNavListener();
+        checkIfUsernameExists();
         enrollButtonClickListener();
 
     }
@@ -103,6 +111,42 @@ public class AddStudent extends AppCompatActivity
         });
     }
 
+    public void checkIfUsernameExists()
+    {
+        et_j_addstudent_username.addTextChangedListener(new TextWatcher()
+        {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2)
+            {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2)
+            {
+                usernameTaken = db.usernameExists(et_j_addstudent_username.getText().toString());
+
+                if (!usernameTaken)
+                {
+                    btn_j_addstudent_enroll.setEnabled(true);
+                    tv_j_addstudent_usernameExists.setText("");
+                }
+                else
+                {
+                    btn_j_addstudent_enroll.setEnabled(false);
+                    tv_j_addstudent_usernameExists.setText("Error: Username taken");
+                    tv_j_addstudent_usernameExists.setTextColor(Color.RED);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable)
+            {
+
+            }
+        });
+    }
+
     private void enrollButtonClickListener()
     {
         btn_j_addstudent_enroll.setOnClickListener(new View.OnClickListener()
@@ -110,8 +154,6 @@ public class AddStudent extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-                //Check if username exists(bool)
-
                 //Grab info from textboxes
                 String username = et_j_addstudent_username.getText().toString();
                 String fname = et_j_addstudent_fname.getText().toString();

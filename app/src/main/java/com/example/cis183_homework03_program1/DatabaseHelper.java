@@ -119,7 +119,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
     {
         SQLiteDatabase db = this.getReadableDatabase();
 
-        String checkUsername = "SELECT count(username) FROM " + students_table_name + "WHERE username = '" + username + "';";
+        String checkUsername = "SELECT count(username) FROM " + students_table_name + " WHERE username = '" + username + "';";
 
         //Query
         Cursor cursor = db.rawQuery(checkUsername,null);
