@@ -226,4 +226,76 @@ public class DatabaseHelper extends SQLiteOpenHelper
         return listOfStudents;
     }
 
+    public boolean majorIdExists(int majorId)
+    {
+        //Get a readable db version
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        //Count the number of records that contain the majorId that is passed
+        //We should only get 1 or 0 records since the majorIs is autoincrement
+        String checkMajorId = "SELECT count(majorId) FROM " + majors_table_name + " WHERE majorId = '" + majorId + "';";
+
+        //Run the query
+        Cursor cursor = db.rawQuery(checkMajorId, null);
+
+        //Move the cursor to the first row
+        cursor.moveToFirst();
+
+        //Get the count
+        int count = cursor.getInt(0);
+
+        //Close the db
+        db.close();
+
+        //If the count is anything other than zero then the major exists
+        //If the count is 0 then something is wrong with either the db, adding after load, or our query use
+        if (count != 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public String getMajorName(int majorId)
+    {
+        String majorName = "";
+
+        //If majorId from the students_table_name is found in majors_table_name
+        //then get the name
+        if (majorIdExists(majorId))
+        {
+            //SQL statement to get the majorName from a passed MajorID
+            String selectstatement = "SELECT majorName FROM " + majors_table_name + " WHERE majorId = '" + majorId + "';";
+
+            //Get a readable db version
+            SQLiteDatabase db = this.getReadableDatabase();
+
+            //Run query
+            Cursor cursor = db.rawQuery(selectstatement, null);
+
+            if (cursor != null)
+            {
+                //Move the cursor to the first row
+                //there should only be one row returned since we are looking by the MajorId, which is autoincrement
+                cursor.moveToFirst();
+                //The table returned is 1x1 so there is only one spot with data in it at (0)
+                majorName = cursor.getString(0).toString();
+            }
+
+            //Close the db
+            db.close();
+        }
+        //If the majorId was not found in the table then there is no Major associated with it
+        //Return an error message
+        else
+        {
+            majorName = "Error: major not found";
+            Log.d("ERROR: ", "There is no major matching this majorId: " + majorId);
+        }
+
+        return majorName;
+    }
 }

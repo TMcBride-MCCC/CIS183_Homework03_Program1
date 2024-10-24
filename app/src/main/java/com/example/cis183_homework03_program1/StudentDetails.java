@@ -30,7 +30,7 @@ public class StudentDetails extends AppCompatActivity
     Button btn_j_details_back;
     BottomNavigationView bnv_j_details_bottomNav;
 
-    //DatabaseHelper dbHelper;
+    DatabaseHelper dbHelper;
     Student student;
 
     @Override
@@ -51,7 +51,7 @@ public class StudentDetails extends AppCompatActivity
         btn_j_details_back = findViewById(R.id.btn_v_details_back);
         bnv_j_details_bottomNav = findViewById(R.id.bnv_v_details_bottomNav);
 
-        //dbHelper = new DatabaseHelper(this);
+        dbHelper = new DatabaseHelper(this);
 
         //Grab the Student info
         Intent intent = getIntent();
@@ -130,15 +130,21 @@ public class StudentDetails extends AppCompatActivity
         String email = student.getEmail();
         int age = student.getAge();;
         float gpa = student.getGpa();;
-        int major = student.getMajorId();
+        //This pull majorId
+        int majorId = student.getMajorId();
+        //This uses majorId to search the majors table for a corresponding majorName
+        String majorName = dbHelper.getMajorName(majorId);
 
         tv_j_details_username.setText(username);
         tv_j_details_name.setText(fname + " " + lname);
         tv_j_details_email.setText(email);
         tv_j_details_age.setText(String.valueOf(age));
         tv_j_details_gpa.setText(String.valueOf(gpa));
-        tv_j_details_major.setText(String.valueOf(major));
+
+        //This sets texts as the majorId
+        //tv_j_details_major.setText(String.valueOf(majorId));
+
+        //Code to set text as majorName
+        tv_j_details_major.setText(majorName);
     }
-
-
 }
