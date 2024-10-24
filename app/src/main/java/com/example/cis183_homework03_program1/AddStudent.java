@@ -165,18 +165,47 @@ public class AddStudent extends AppCompatActivity
                 String lname = et_j_addstudent_lname.getText().toString();
                 String email = et_j_addstudent_email.getText().toString();
                 String ageCheck = et_j_addstudent_age.getText().toString();
-                int age = Integer.parseInt(et_j_addstudent_age.getText().toString());
                 String gpaCheck = et_j_addstudent_gpa.getText().toString();
-                float gpa = Float.parseFloat(et_j_addstudent_gpa.getText().toString());
                 String majorName = sp_j_addstudent_major.getSelectedItem().toString();
+                int age = 0;
+                float gpa = 0f;
+
+                //Convert the majorName to the corresponding majorId
                 int majorId = db.getMajorId(majorName);
 
                 //If any field is empty disable button
                 if (username.isEmpty() || fname.isEmpty() || lname.isEmpty() || email.isEmpty() || ageCheck.isEmpty() || gpaCheck.isEmpty() || majorName.isEmpty())
                 {
+                    Log.d("ERROR:", "A field is empty");
                     btn_j_addstudent_enroll.setEnabled(false);
+                    return;
+                }
+                else
+                {
+                    btn_j_addstudent_enroll.setEnabled(true);
                 }
 
+                //Get the int number from string
+                try
+                {
+                    age = Integer.parseInt(et_j_addstudent_age.getText().toString());
+                }
+                catch (NumberFormatException e)
+                {
+                    Log.d("ERROR:", "Age must be a number");
+                    return;
+                }
+
+                //Get the float number from string
+                try
+                {
+                    gpa = Float.parseFloat(et_j_addstudent_gpa.getText().toString());
+                }
+                catch (NumberFormatException e)
+                {
+                    Log.d("ERROR:", "GPA must be a number");
+                    return;
+                }
 
                 //If all fields are filled out make a new Student
                 if (!username.isEmpty() && !fname.isEmpty() && !lname.isEmpty() && !email.isEmpty() && !ageCheck.isEmpty() && !gpaCheck.isEmpty() && !majorName.isEmpty())

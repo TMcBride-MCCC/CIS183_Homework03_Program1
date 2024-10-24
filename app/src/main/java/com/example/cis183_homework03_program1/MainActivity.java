@@ -128,5 +128,17 @@ public class MainActivity extends AppCompatActivity
                 startActivity(intent_j_main_StudentDetails);
             }
         });
+
+        lv_j_main_listOfStudents.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener()
+        {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l)
+            {
+                Student selectedStudent = listOfStudents.get(i);
+                intent_j_main_StudentDetails = new Intent(MainActivity.this,StudentDetails.class);
+                intent_j_main_StudentDetails.putExtra("student", selectedStudent);
+                startActivity(intent_j_main_StudentDetails);
+            }
+        });
     }
 }
