@@ -21,9 +21,11 @@ public class MainActivity extends AppCompatActivity
     DatabaseHelper dbHelper;
     ListView lv_j_main_listOfStudents;
     static ArrayList<Student> listOfStudents = new ArrayList<>();
+    static ArrayList<Major> listOfMajors = new ArrayList<>();
     HomeListAdapter adapter_home;
     BottomNavigationView bnv_j_main_bottomNav;
     Intent intent_j_main_StudentDetails;
+    Intent getIntent_j_main_AddStudent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -47,6 +49,8 @@ public class MainActivity extends AppCompatActivity
 
         //Grab student data from the db
         listOfStudents = dbHelper.fillStudentArrayList();
+        //Grab major data from the db
+        listOfMajors = dbHelper.fillMajorArrayList();
 
         //Fill the lv
         fillListView();

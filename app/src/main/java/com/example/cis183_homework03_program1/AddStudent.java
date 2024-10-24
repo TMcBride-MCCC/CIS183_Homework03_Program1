@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -28,6 +29,7 @@ public class AddStudent extends AppCompatActivity
     EditText et_j_addstudent_age;
     EditText et_j_addstudent_gpa;
     Spinner sp_j_addstudent_major;
+    ArrayAdapter<String> adapter;
     Button btn_j_addstudent_enroll;
     BottomNavigationView bnv_j_addstudent_bottomNav;
     DatabaseHelper db;
@@ -53,6 +55,10 @@ public class AddStudent extends AppCompatActivity
 
         //Set the nav bar icon
         bnv_j_addstudent_bottomNav.setSelectedItemId(R.id.nav_addStudent);
+
+        //Fill the spinner
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, db.getAllMajorNames()); //need to add db.getMajors
+        sp_j_addstudent_major.setAdapter(adapter);
 
         bottomNavListener();
         enrollButtonClickListener();
@@ -104,6 +110,8 @@ public class AddStudent extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
+                //Check if username exists(bool)
+
                 //Grab info from textboxes
                 String username = et_j_addstudent_username.getText().toString();
                 String fname = et_j_addstudent_fname.getText().toString();
@@ -113,7 +121,6 @@ public class AddStudent extends AppCompatActivity
                 float gpa = Float.parseFloat(et_j_addstudent_gpa.getText().toString());
                 String majorName = sp_j_addstudent_major.getTransitionName();
 
-                //Check if username exists(bool)
 
                 //Convert majorName to MajorId
 

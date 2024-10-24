@@ -226,6 +226,72 @@ public class DatabaseHelper extends SQLiteOpenHelper
         return listOfStudents;
     }
 
+    public ArrayList<Major> fillMajorArrayList()
+    {
+        //Make a new arraylist
+        ArrayList<Major> listOfMajors = new ArrayList<>();
+
+        //Get a readable database copy
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        //Query
+        String selectQuery = "SELECT * FROM " + majors_table_name;
+        Cursor cursor = db.rawQuery(selectQuery,null);
+
+        if (cursor !=null)
+        {
+            //Move the cursor
+            cursor.moveToFirst();
+            for (int i = 0; i < cursor.getCount(); i++)
+            {
+                //Make a new major memory chunk
+                Major major = new Major();
+
+                //Set the info
+                major.setMajorId(cursor.getInt(0));
+                major.setMajorPrefix(cursor.getString(1));
+                major.setMajorName(cursor.getString(2));
+
+                //Add the major
+                listOfMajors.add(major);
+
+                //Move the cursor
+                cursor.moveToNext();
+            }
+        }
+        //Close the database
+        db.close();
+
+        return listOfMajors;
+    }
+
+    public ArrayList<String> getAllMajorNames()
+    {
+        ArrayList<String> listOfMajorNames = new ArrayList<>();
+
+        //Get a readable database copy
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        //Query
+        String selectQuery = "SELECT majorName FROM " + majors_table_name;
+        Cursor cursor = db.rawQuery(selectQuery,null);
+
+        if (cursor !=null)
+        {
+            //Move the cursor
+            cursor.moveToFirst();
+            for (int i = 0; i < cursor.getCount(); i++)
+            {
+                listOfMajorNames.add(cursor.getString(0));
+                cursor.moveToNext();
+            }
+        }
+        //Close the database
+        db.close();
+
+        return listOfMajorNames;
+    }
+
     public boolean majorIdExists(int majorId)
     {
         //Get a readable db version
@@ -282,7 +348,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
                 //there should only be one row returned since we are looking by the MajorId, which is autoincrement
                 cursor.moveToFirst();
                 //The table returned is 1x1 so there is only one spot with data in it at (0)
-                majorName = cursor.getString(0).toString();
+                majorName = cursor.getString(0);
             }
 
             //Close the db
@@ -298,6 +364,4 @@ public class DatabaseHelper extends SQLiteOpenHelper
 
         return majorName;
     }
-
-    public
 }

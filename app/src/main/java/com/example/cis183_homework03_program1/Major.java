@@ -57,4 +57,5 @@ public class Major implements Serializable
     {
         this.majorName = majorName;
     }
+
 }
