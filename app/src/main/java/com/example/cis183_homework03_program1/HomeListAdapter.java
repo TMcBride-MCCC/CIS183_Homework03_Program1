@@ -56,7 +56,7 @@ public class HomeListAdapter extends BaseAdapter
         Student student = listOfStudents.get(i);
 
         //Set the GUI
-        lName.setText(student.getlName());
+        lName.setText(student.getlName() + ",");
         fName.setText(student.getfName());
         username.setText(student.getUsername());
 

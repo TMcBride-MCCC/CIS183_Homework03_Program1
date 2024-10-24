@@ -39,6 +39,7 @@ public class AddStudent extends AppCompatActivity
     DatabaseHelper db;
     boolean usernameTaken = false;
     TextView tv_j_addstudent_usernameExists;
+    TextView tv_j_addstudent_fillFieldsError;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -59,6 +60,7 @@ public class AddStudent extends AppCompatActivity
         bnv_j_addstudent_bottomNav = findViewById(R.id.bnv_v_addstudent_bottomNav);
         db = new DatabaseHelper(this);
         tv_j_addstudent_usernameExists = findViewById(R.id.tv_v_addstudent_usernameExists);
+        tv_j_addstudent_fillFieldsError = findViewById(R.id.tv_v_addstudent_fillFieldsError);
 
         //Set the nav bar icon
         bnv_j_addstudent_bottomNav.setSelectedItemId(R.id.nav_addStudent);
@@ -66,6 +68,9 @@ public class AddStudent extends AppCompatActivity
         //Fill the spinner
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, db.getAllMajorNames()); //need to add db.getMajors
         sp_j_addstudent_major.setAdapter(adapter);
+
+        //Set button to not enabled
+        btn_j_addstudent_enroll.setEnabled(false);
 
         bottomNavListener();
         checkIfUsernameExists();
@@ -159,19 +164,47 @@ public class AddStudent extends AppCompatActivity
                 String fname = et_j_addstudent_fname.getText().toString();
                 String lname = et_j_addstudent_lname.getText().toString();
                 String email = et_j_addstudent_email.getText().toString();
+                String ageCheck = et_j_addstudent_age.getText().toString();
                 int age = Integer.parseInt(et_j_addstudent_age.getText().toString());
+                String gpaCheck = et_j_addstudent_gpa.getText().toString();
                 float gpa = Float.parseFloat(et_j_addstudent_gpa.getText().toString());
-                String majorName = sp_j_addstudent_major.getTransitionName();
+                String majorName = sp_j_addstudent_major.getSelectedItem().toString();
+                int majorId = db.getMajorId(majorName);
+
+                //If any field is empty disable button
+                if (username.isEmpty() || fname.isEmpty() || lname.isEmpty() || email.isEmpty() || ageCheck.isEmpty() || gpaCheck.isEmpty() || majorName.isEmpty())
+                {
+                    btn_j_addstudent_enroll.setEnabled(false);
+                }
 
 
-                //Convert majorName to MajorId
+                //If all fields are filled out make a new Student
+                if (!username.isEmpty() && !fname.isEmpty() && !lname.isEmpty() && !email.isEmpty() && !ageCheck.isEmpty() && !gpaCheck.isEmpty() && !majorName.isEmpty())
+                {
+                    //If all fields are filled out enable button
+                    btn_j_addstudent_enroll.setEnabled(true);
 
-                //If username does not exists
-                //if (!username.isEmpty() && !fname.isEmpty() && !lname.isEmpty() && !email.isEmpty() && !age.isEmpty && !gpa.isEmpty() && !majorName.isEmpty())
-                //{
+                    Student studentToAdd = new Student();
 
-                //}
+                    studentToAdd.setUsername(username);
+                    studentToAdd.setEmail(email);
+                    studentToAdd.setfName(fname);
+                    studentToAdd.setlName(lname);
+                    studentToAdd.setAge(age);
+                    studentToAdd.setGpa(gpa);
+                    studentToAdd.setMajorId(majorId);
 
+                    db.addStudentToDb(studentToAdd);
+                    Log.d("USER ADDED: ", "" + studentToAdd.getUsername() + " was added to the db");
+
+                    //Clear all et
+                    et_j_addstudent_username.getText().clear();
+                    et_j_addstudent_fname.getText().clear();
+                    et_j_addstudent_lname.getText().clear();
+                    et_j_addstudent_email.getText().clear();
+                    et_j_addstudent_age.getText().clear();
+                    et_j_addstudent_gpa.getText().clear();
+                }
             }
         });
     }

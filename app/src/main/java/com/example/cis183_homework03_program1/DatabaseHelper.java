@@ -17,7 +17,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
 
     public DatabaseHelper (Context c)
     {
-        super(c, database_name, null, 1);
+        super(c, database_name, null, 2);
     }
     @Override
     public void onCreate(SQLiteDatabase db)
@@ -363,5 +363,50 @@ public class DatabaseHelper extends SQLiteOpenHelper
         }
 
         return majorName;
+    }
+
+    public int getMajorId(String majorName)
+    {
+        int majorId = 0;
+
+        //SQL statement to get the majorId from a passed majorName
+        String selectstatement = "SELECT majorId FROM " + majors_table_name + " WHERE majorName = '" + majorName + "';";
+
+        //Get a readable db version
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        //Run query
+        Cursor cursor = db.rawQuery(selectstatement, null);
+
+        //Move the cursor to the first row
+        //there should only be one row returned since we are looking by the MajorName
+        cursor.moveToFirst();
+
+        if (cursor != null && cursor.moveToFirst())
+        {
+            //The table returned is 1x1 so there is only one spot with data in it at (0)
+            majorId = cursor.getInt(0);
+        }
+        else
+        {
+            Log.d("ERROR: ", "Could not find a majorName matching that majorId");
+        }
+
+        //Close the db
+        db.close();
+
+        return majorId;
+    }
+
+    public void addStudentToDb(Student s)
+    {
+        //Get a writeable db version
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        //SQL INSERT statement
+        db.execSQL("INSERT INTO " + students_table_name + " (username, email, fname, lname, age, gpa, majorId) VALUES ('" + s.getUsername() + "','" + s.getEmail() + "','" + s.getfName() + "','" + s.getlName() + "','" + s.getAge() + "','" + s.getGpa() + "','" + s.getMajorId() + "');");
+
+        //Close the db
+        db.close();
     }
 }
