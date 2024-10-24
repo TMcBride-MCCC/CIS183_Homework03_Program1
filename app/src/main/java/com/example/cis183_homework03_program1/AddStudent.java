@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
@@ -26,7 +28,9 @@ public class AddStudent extends AppCompatActivity
     EditText et_j_addstudent_age;
     EditText et_j_addstudent_gpa;
     Spinner sp_j_addstudent_major;
+    Button btn_j_addstudent_enroll;
     BottomNavigationView bnv_j_addstudent_bottomNav;
+    DatabaseHelper db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -43,12 +47,15 @@ public class AddStudent extends AppCompatActivity
         et_j_addstudent_age = findViewById(R.id.et_v_addstudent_age);
         et_j_addstudent_gpa = findViewById(R.id.et_v_addstudent_gpa);
         sp_j_addstudent_major = findViewById(R.id.sp_v_addstudent_major);
+        btn_j_addstudent_enroll = findViewById(R.id.btn_v_addstudent_enroll);
         bnv_j_addstudent_bottomNav = findViewById(R.id.bnv_v_addstudent_bottomNav);
+        db = new DatabaseHelper(this);
 
         //Set the nav bar icon
         bnv_j_addstudent_bottomNav.setSelectedItemId(R.id.nav_addStudent);
 
         bottomNavListener();
+        enrollButtonClickListener();
 
     }
 
@@ -86,6 +93,36 @@ public class AddStudent extends AppCompatActivity
                 }
 
                 return false;
+            }
+        });
+    }
+
+    private void enrollButtonClickListener()
+    {
+        btn_j_addstudent_enroll.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                //Grab info from textboxes
+                String username = et_j_addstudent_username.getText().toString();
+                String fname = et_j_addstudent_fname.getText().toString();
+                String lname = et_j_addstudent_lname.getText().toString();
+                String email = et_j_addstudent_email.getText().toString();
+                int age = Integer.parseInt(et_j_addstudent_age.getText().toString());
+                float gpa = Float.parseFloat(et_j_addstudent_gpa.getText().toString());
+                String majorName = sp_j_addstudent_major.getTransitionName();
+
+                //Check if username exists(bool)
+
+                //Convert majorName to MajorId
+
+                //If username does not exists
+                //if (!username.isEmpty() && !fname.isEmpty() && !lname.isEmpty() && !email.isEmpty() && !age.isEmpty && !gpa.isEmpty() && !majorName.isEmpty())
+                //{
+
+                //}
+
             }
         });
     }

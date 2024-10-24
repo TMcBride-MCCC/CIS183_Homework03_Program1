@@ -298,4 +298,6 @@ public class DatabaseHelper extends SQLiteOpenHelper
 
         return majorName;
     }
+
+    public
 }
