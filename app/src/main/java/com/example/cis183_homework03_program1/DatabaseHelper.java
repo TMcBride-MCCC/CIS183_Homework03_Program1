@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class DatabaseHelper extends SQLiteOpenHelper
 {
-    private static final String database_name = "Students.db";
+    private static final String database_name = "Students.dbHelper";
     private static final String students_table_name = "Students";
     private static final String majors_table_name = "Majors";
 
@@ -294,7 +294,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
 
     public boolean majorIdExists(int majorId)
     {
-        //Get a readable db version
+        //Get a readable dbHelper version
         SQLiteDatabase db = this.getReadableDatabase();
 
         //Count the number of records that contain the majorId that is passed
@@ -310,11 +310,11 @@ public class DatabaseHelper extends SQLiteOpenHelper
         //Get the count
         int count = cursor.getInt(0);
 
-        //Close the db
+        //Close the dbHelper
         db.close();
 
         //If the count is anything other than zero then the major exists
-        //If the count is 0 then something is wrong with either the db, adding after load, or our query use
+        //If the count is 0 then something is wrong with either the dbHelper, adding after load, or our query use
         if (count != 0)
         {
             return true;
@@ -336,7 +336,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
             //SQL statement to get the majorName from a passed MajorID
             String selectstatement = "SELECT majorName FROM " + majors_table_name + " WHERE majorId = '" + majorId + "';";
 
-            //Get a readable db version
+            //Get a readable dbHelper version
             SQLiteDatabase db = this.getReadableDatabase();
 
             //Run query
@@ -351,7 +351,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
                 majorName = cursor.getString(0);
             }
 
-            //Close the db
+            //Close the dbHelper
             db.close();
         }
         //If the majorId was not found in the table then there is no Major associated with it
@@ -372,7 +372,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
         //SQL statement to get the majorId from a passed majorName
         String selectstatement = "SELECT majorId FROM " + majors_table_name + " WHERE majorName = '" + majorName + "';";
 
-        //Get a readable db version
+        //Get a readable dbHelper version
         SQLiteDatabase db = this.getReadableDatabase();
 
         //Run query
@@ -392,7 +392,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
             Log.d("ERROR: ", "Could not find a majorName matching that majorId");
         }
 
-        //Close the db
+        //Close the dbHelper
         db.close();
 
         return majorId;
@@ -400,24 +400,24 @@ public class DatabaseHelper extends SQLiteOpenHelper
 
     public void addStudentToDb(Student s)
     {
-        //Get a writeable db version
+        //Get a writeable dbHelper version
         SQLiteDatabase db = this.getWritableDatabase();
 
         //SQL INSERT statement
         db.execSQL("INSERT INTO " + students_table_name + " (username, email, fname, lname, age, gpa, majorId) VALUES ('" + s.getUsername() + "','" + s.getEmail() + "','" + s.getfName() + "','" + s.getlName() + "','" + s.getAge() + "','" + s.getGpa() + "','" + s.getMajorId() + "');");
 
-        //Close the db
+        //Close the dbHelper
         db.close();
     }
 
     public void deleteStudentFromDb(Student s)
     {
-        //Get a writeable db version
+        //Get a writeable dbHelper version
         SQLiteDatabase db = this.getWritableDatabase();
 
         //SQL DELETE statement
         db.execSQL("DELETE FROM " + students_table_name + " WHERE username = '" + s.getUsername() + "';");
-        //Close the db
+        //Close the dbHelper
         db.close();
     }
 }

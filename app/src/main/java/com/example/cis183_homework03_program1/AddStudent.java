@@ -17,9 +17,6 @@ import android.widget.TextView;
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -36,7 +33,7 @@ public class AddStudent extends AppCompatActivity
     ArrayAdapter<String> adapter;
     Button btn_j_addstudent_enroll;
     BottomNavigationView bnv_j_addstudent_bottomNav;
-    DatabaseHelper db;
+    DatabaseHelper dbHelper;
     boolean usernameTaken = false;
     TextView tv_j_addstudent_usernameExists;
     TextView tv_j_addstudent_fillFieldsError;
@@ -58,7 +55,7 @@ public class AddStudent extends AppCompatActivity
         sp_j_addstudent_major = findViewById(R.id.sp_v_addstudent_major);
         btn_j_addstudent_enroll = findViewById(R.id.btn_v_addstudent_enroll);
         bnv_j_addstudent_bottomNav = findViewById(R.id.bnv_v_addstudent_bottomNav);
-        db = new DatabaseHelper(this);
+        dbHelper = new DatabaseHelper(this);
         tv_j_addstudent_usernameExists = findViewById(R.id.tv_v_addstudent_usernameExists);
         tv_j_addstudent_fillFieldsError = findViewById(R.id.tv_v_addstudent_fillFieldsError);
 
@@ -66,7 +63,7 @@ public class AddStudent extends AppCompatActivity
         bnv_j_addstudent_bottomNav.setSelectedItemId(R.id.nav_addStudent);
 
         //Fill the spinner
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, db.getAllMajorNames()); //need to add db.getMajors
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, dbHelper.getAllMajorNames());
         sp_j_addstudent_major.setAdapter(adapter);
 
         //Set button to not enabled
@@ -129,7 +126,7 @@ public class AddStudent extends AppCompatActivity
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2)
             {
-                usernameTaken = db.usernameExists(et_j_addstudent_username.getText().toString());
+                usernameTaken = dbHelper.usernameExists(et_j_addstudent_username.getText().toString());
 
                 if (!usernameTaken)
                 {
@@ -171,7 +168,7 @@ public class AddStudent extends AppCompatActivity
                 float gpa = 0f;
 
                 //Convert the majorName to the corresponding majorId
-                int majorId = db.getMajorId(majorName);
+                int majorId = dbHelper.getMajorId(majorName);
 
                 //If any field is empty disable button
                 if (username.isEmpty() || fname.isEmpty() || lname.isEmpty() || email.isEmpty() || ageCheck.isEmpty() || gpaCheck.isEmpty() || majorName.isEmpty())
@@ -223,8 +220,8 @@ public class AddStudent extends AppCompatActivity
                     studentToAdd.setGpa(gpa);
                     studentToAdd.setMajorId(majorId);
 
-                    db.addStudentToDb(studentToAdd);
-                    Log.d("USER ADDED: ", "" + studentToAdd.getUsername() + " was added to the db");
+                    dbHelper.addStudentToDb(studentToAdd);
+                    Log.d("USER ADDED: ", "" + studentToAdd.getUsername() + " was added to the dbHelper");
 
                     //Clear all et
                     et_j_addstudent_username.getText().clear();

@@ -25,7 +25,6 @@ public class MainActivity extends AppCompatActivity
     HomeListAdapter adapter_home;
     BottomNavigationView bnv_j_main_bottomNav;
     Intent intent_j_main_StudentDetails;
-    Intent getIntent_j_main_AddStudent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -47,9 +46,9 @@ public class MainActivity extends AppCompatActivity
         //Initialize dummy data
         dbHelper.initAllTables();
 
-        //Grab student data from the db
+        //Grab student data from the dbHelper
         listOfStudents = dbHelper.fillStudentArrayList();
-        //Grab major data from the db
+        //Grab major data from the dbHelper
         listOfMajors = dbHelper.fillMajorArrayList();
 
         //Fill the lv
@@ -126,6 +125,7 @@ public class MainActivity extends AppCompatActivity
                 intent_j_main_StudentDetails = new Intent(MainActivity.this,StudentDetails.class);
                 intent_j_main_StudentDetails.putExtra("student", selectedStudent);
                 startActivity(intent_j_main_StudentDetails);
+                Log.d("Student: ", "Student: " + selectedStudent);
             }
         });
 
@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l)
             {
-                //Remove student from db
+                //Remove student from dbHelper
                 Student selectedStudent = listOfStudents.get(i);
                 dbHelper.deleteStudentFromDb(selectedStudent);
 
