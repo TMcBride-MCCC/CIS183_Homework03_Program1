@@ -40,7 +40,6 @@ public class AddStudent extends AppCompatActivity
     boolean usernameTaken = false;
     TextView tv_j_addstudent_usernameExists;
     TextView tv_j_addstudent_fillFieldsError;
-    static ArrayList<Student> listOfStudents = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -236,9 +235,7 @@ public class AddStudent extends AppCompatActivity
         studentToAdd.setMajorId(m);
 
         //Add student to list
-        listOfStudents.add(studentToAdd);
-        //Tell the adapter that the list needs refreshed
-        adapter.notifyDataSetChanged();
+        StudentList.getInstance().getStudents().add(studentToAdd);
         //Add student to the db
         dbHelper.addStudentToDb(studentToAdd);
         Log.d("USER ADDED: ", "" + studentToAdd.getUsername() + " was added");

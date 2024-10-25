@@ -28,7 +28,6 @@ import java.util.ArrayList;
 public class UpdateStudent extends AppCompatActivity
 {
     //Create Java variables
-    static ArrayList<Student> listOfStudents = new ArrayList<>();
     static ArrayList<Major> listOfMajors = new ArrayList<>();
     TextView tv_j_updatestudent_username;
     EditText et_j_updatestudent_fname;
@@ -222,7 +221,10 @@ public class UpdateStudent extends AppCompatActivity
                     studentToChange.setGpa(gpa);
                     studentToChange.setMajorId(majorId);
 
-                    dbHelper.updateStudentInDb(studentToChange); //CHANGE TO UPDATE
+                    //Update the student in the db
+                    dbHelper.updateStudentInDb(studentToChange);
+                    //Update the student in the list
+                    StudentList.getInstance().updateStudent(studentToChange);
                     Log.d("USER CHANGED: ", "" + studentToChange.getUsername() + " details changed");
 
                     backToDetailsWithNewInfo(studentToChange);

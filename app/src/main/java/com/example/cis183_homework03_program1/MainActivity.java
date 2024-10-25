@@ -20,7 +20,6 @@ public class MainActivity extends AppCompatActivity
 {
     DatabaseHelper dbHelper;
     ListView lv_j_main_listOfStudents;
-    static ArrayList<Student> listOfStudents = new ArrayList<>();
     static ArrayList<Major> listOfMajors = new ArrayList<>();
     HomeListAdapter adapter_home;
     BottomNavigationView bnv_j_main_bottomNav;
@@ -47,7 +46,7 @@ public class MainActivity extends AppCompatActivity
         dbHelper.initAllTables();
 
         //Grab student data from the dbHelper
-        listOfStudents = dbHelper.fillStudentArrayList();
+        StudentList.getInstance().initStudentList(dbHelper.fillStudentArrayList());
         //Grab major data from the dbHelper
         listOfMajors = dbHelper.fillMajorArrayList();
 
@@ -72,7 +71,7 @@ public class MainActivity extends AppCompatActivity
 
     private void fillListView()
     {
-        adapter_home = new HomeListAdapter(this, listOfStudents);
+        adapter_home = new HomeListAdapter(this, StudentList.getInstance().getStudents());
         lv_j_main_listOfStudents.setAdapter(adapter_home);
     }
 
@@ -121,7 +120,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
             {
-                Student selectedStudent = listOfStudents.get(i);
+                Student selectedStudent = StudentList.getInstance().getStudents().get(i);
                 intent_j_main_StudentDetails = new Intent(MainActivity.this,StudentDetails.class);
                 intent_j_main_StudentDetails.putExtra("sentFrom", "MainActivity");
                 intent_j_main_StudentDetails.putExtra("studentFromMain", selectedStudent);
@@ -136,11 +135,11 @@ public class MainActivity extends AppCompatActivity
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l)
             {
                 //Remove student from dbHelper
-                Student selectedStudent = listOfStudents.get(i);
+                Student selectedStudent = StudentList.getInstance().getStudents().get(i);
                 dbHelper.deleteStudentFromDb(selectedStudent);
 
                 //Remove student from list
-                listOfStudents.remove(i);
+                StudentList.getInstance().getStudents().remove(i);
                 adapter_home.notifyDataSetChanged();
 
                 return true;
