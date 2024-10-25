@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -19,6 +20,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import java.util.ArrayList;
 
 public class AddStudent extends AppCompatActivity
 {
@@ -37,6 +40,7 @@ public class AddStudent extends AppCompatActivity
     boolean usernameTaken = false;
     TextView tv_j_addstudent_usernameExists;
     TextView tv_j_addstudent_fillFieldsError;
+    static ArrayList<Student> listOfStudents = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -164,11 +168,11 @@ public class AddStudent extends AppCompatActivity
                 String ageCheck = et_j_addstudent_age.getText().toString();
                 String gpaCheck = et_j_addstudent_gpa.getText().toString();
                 String majorName = sp_j_addstudent_major.getSelectedItem().toString();
-                int age = 0;
-                float gpa = 0f;
-
                 //Convert the majorName to the corresponding majorId
                 int majorId = dbHelper.getMajorId(majorName);
+                //Set number related variables to 0
+                int age = 0;
+                float gpa = 0f;
 
                 //If any field is empty disable button
                 if (username.isEmpty() || fname.isEmpty() || lname.isEmpty() || email.isEmpty() || ageCheck.isEmpty() || gpaCheck.isEmpty() || majorName.isEmpty())
@@ -183,6 +187,7 @@ public class AddStudent extends AppCompatActivity
                 }
 
                 //Get the int number from string
+                //Check that age is a number and nothing else
                 try
                 {
                     age = Integer.parseInt(et_j_addstudent_age.getText().toString());
@@ -194,6 +199,7 @@ public class AddStudent extends AppCompatActivity
                 }
 
                 //Get the float number from string
+                //Check that gpa is a number and nothing else
                 try
                 {
                     gpa = Float.parseFloat(et_j_addstudent_gpa.getText().toString());
@@ -204,34 +210,48 @@ public class AddStudent extends AppCompatActivity
                     return;
                 }
 
-                //If all fields are filled out make a new Student
+                //If all fields are not empty make a new Student
                 if (!username.isEmpty() && !fname.isEmpty() && !lname.isEmpty() && !email.isEmpty() && !ageCheck.isEmpty() && !gpaCheck.isEmpty() && !majorName.isEmpty())
                 {
-                    //If all fields are filled out enable button
-                    btn_j_addstudent_enroll.setEnabled(true);
-
-                    Student studentToAdd = new Student();
-
-                    studentToAdd.setUsername(username);
-                    studentToAdd.setEmail(email);
-                    studentToAdd.setfName(fname);
-                    studentToAdd.setlName(lname);
-                    studentToAdd.setAge(age);
-                    studentToAdd.setGpa(gpa);
-                    studentToAdd.setMajorId(majorId);
-
-                    dbHelper.addStudentToDb(studentToAdd);
-                    Log.d("USER ADDED: ", "" + studentToAdd.getUsername() + " was added to the db");
-
-                    //Clear all et
-                    et_j_addstudent_username.getText().clear();
-                    et_j_addstudent_fname.getText().clear();
-                    et_j_addstudent_lname.getText().clear();
-                    et_j_addstudent_email.getText().clear();
-                    et_j_addstudent_age.getText().clear();
-                    et_j_addstudent_gpa.getText().clear();
+                    addStudent(username, fname, lname, email, age, gpa, majorId);
+                    clearText();
                 }
             }
         });
+    }
+
+    private void addStudent(String u, String f, String l, String e, int a, float g, int m)
+    {
+        //If all fields are filled out enable button
+        btn_j_addstudent_enroll.setEnabled(true);
+
+        Student studentToAdd = new Student();
+
+        studentToAdd.setUsername(u);
+        studentToAdd.setEmail(e);
+        studentToAdd.setfName(f);
+        studentToAdd.setlName(l);
+        studentToAdd.setAge(a);
+        studentToAdd.setGpa(g);
+        studentToAdd.setMajorId(m);
+
+        //Add student to list
+        listOfStudents.add(studentToAdd);
+        //Tell the adapter that the list needs refreshed
+        adapter.notifyDataSetChanged();
+        //Add student to the db
+        dbHelper.addStudentToDb(studentToAdd);
+        Log.d("USER ADDED: ", "" + studentToAdd.getUsername() + " was added");
+    }
+
+    private void clearText()
+    {
+        //Clear all et
+        et_j_addstudent_username.getText().clear();
+        et_j_addstudent_fname.getText().clear();
+        et_j_addstudent_lname.getText().clear();
+        et_j_addstudent_email.getText().clear();
+        et_j_addstudent_age.getText().clear();
+        et_j_addstudent_gpa.getText().clear();
     }
 }
