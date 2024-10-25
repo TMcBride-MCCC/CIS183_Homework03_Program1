@@ -123,7 +123,8 @@ public class MainActivity extends AppCompatActivity
             {
                 Student selectedStudent = listOfStudents.get(i);
                 intent_j_main_StudentDetails = new Intent(MainActivity.this,StudentDetails.class);
-                intent_j_main_StudentDetails.putExtra("student", selectedStudent);
+                intent_j_main_StudentDetails.putExtra("sentFrom", "MainActivity");
+                intent_j_main_StudentDetails.putExtra("studentFromMain", selectedStudent);
                 startActivity(intent_j_main_StudentDetails);
                 Log.d("Student: ", "Student: " + selectedStudent);
             }

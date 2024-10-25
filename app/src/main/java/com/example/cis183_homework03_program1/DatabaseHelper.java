@@ -107,6 +107,25 @@ public class DatabaseHelper extends SQLiteOpenHelper
 
             //Insert the dummy data
             db.execSQL("INSERT INTO " + students_table_name + "(username, email, fname, lname, age, gpa, MajorId) VALUES ('tmcbride2', 'tmcbride@my.monroeccc.edu', 'Tyler', 'McBride', '33', '3.1', '1');");
+            db.execSQL("INSERT INTO " + students_table_name + "(username, email, fname, lname, age, gpa, MajorId) VALUES ('mphillips', 'mphillips@my.monroeccc.edu', 'Mara', 'Phillips', '33', '3.5', '5');");
+            db.execSQL("INSERT INTO " + students_table_name + "(username, email, fname, lname, age, gpa, MajorId) VALUES ('jbob', 'jbob@my.monroeccc.edu', 'Jim', 'Bob', '21', '2', '3');");
+            db.execSQL("INSERT INTO " + students_table_name + "(username, email, fname, lname, age, gpa, MajorId) VALUES ('jjohnson', 'jJohnson@my.monroeccc.edu', 'John', 'Johnson', '22', '2.9', '4');");
+            db.execSQL("INSERT INTO " + students_table_name + "(username, email, fname, lname, age, gpa, MajorId) VALUES ('jaddison', 'jaddison@my.monroeccc.edu', 'Jordan', 'Addison', '22', '3.9', '4');");
+            db.execSQL("INSERT INTO " + students_table_name + "(username, email, fname, lname, age, gpa, MajorId) VALUES ('bmurphy', 'bmurphy@my.monroeccc.edu', 'Byron', 'Murphy Jr.', '26', '1.2', '5');");
+            db.execSQL("INSERT INTO " + students_table_name + "(username, email, fname, lname, age, gpa, MajorId) VALUES ('hphillips', 'hphillips@my.monroeccc.edu', 'Harrison', 'Phillips', '28', '2.9', '6');");
+            db.execSQL("INSERT INTO " + students_table_name + "(username, email, fname, lname, age, gpa, MajorId) VALUES ('cjham', 'cjham@my.monroeccc.edu', 'CJ', 'Ham', '31', '2.8', '3');");
+            db.execSQL("INSERT INTO " + students_table_name + "(username, email, fname, lname, age, gpa, MajorId) VALUES ('ipace', 'ipace@my.monroeccc.edu', 'Ivan', 'Pace', '23', '3', '6');");
+            db.execSQL("INSERT INTO " + students_table_name + "(username, email, fname, lname, age, gpa, MajorId) VALUES ('avanginkel', 'avanginkel@my.monroeccc.edu', 'Andrew', 'Van Ginkel', '29', '4', '1');");
+            db.execSQL("INSERT INTO " + students_table_name + "(username, email, fname, lname, age, gpa, MajorId) VALUES ('sdarnold', 'sdarnold@my.monroeccc.edu', 'Sam', 'Darnold', '27', '4', '3');");
+            db.execSQL("INSERT INTO " + students_table_name + "(username, email, fname, lname, age, gpa, MajorId) VALUES ('nmullens', 'nmullens@my.monroeccc.edu', 'Nick', 'Mullens', '29', '1.4', '4');");
+            db.execSQL("INSERT INTO " + students_table_name + "(username, email, fname, lname, age, gpa, MajorId) VALUES ('jjefferson', 'jjefferson@my.monroeccc.edu', 'Justin', 'Jefferson', '25', '3.3', '4');");
+            db.execSQL("INSERT INTO " + students_table_name + "(username, email, fname, lname, age, gpa, MajorId) VALUES ('jnailor', 'jnailor@my.monroeccc.edu', 'Jalen', 'Nailor', '25', '3.5', '2');");
+            db.execSQL("INSERT INTO " + students_table_name + "(username, email, fname, lname, age, gpa, MajorId) VALUES ('bpowell', 'bpowell@my.monroeccc.edu', 'Brandon', 'Powell', '29', '2.9', '1');");
+            db.execSQL("INSERT INTO " + students_table_name + "(username, email, fname, lname, age, gpa, MajorId) VALUES ('jbrooks', 'jbrooks@my.monroeccc.edu', 'Jalen', 'Brooks', '26', '1', '2');");
+            db.execSQL("INSERT INTO " + students_table_name + "(username, email, fname, lname, age, gpa, MajorId) VALUES ('seedylamb', 'clamb@my.monroeccc.edu', 'CeeDee', 'Lamb', '29', '1', '3');");
+            db.execSQL("INSERT INTO " + students_table_name + "(username, email, fname, lname, age, gpa, MajorId) VALUES ('lschoonmaker', 'lschoonmaker@my.monroeccc.edu', 'Luke', 'Schoonmaker', '26', '1', '6');");
+            db.execSQL("INSERT INTO " + students_table_name + "(username, email, fname, lname, age, gpa, MajorId) VALUES ('tsteele', 'tsteele@my.monroeccc.edu', 'Terence', 'Steele', '29', '1', '3');");
+            db.execSQL("INSERT INTO " + students_table_name + "(username, email, fname, lname, age, gpa, MajorId) VALUES ('dprescott', 'dprescott@my.monroeccc.edu', 'Dak', 'Prescott', '33', '1', '1');");
 
             //close the database
             db.close();
@@ -131,6 +150,8 @@ public class DatabaseHelper extends SQLiteOpenHelper
         //of the table
         int count = cursor.getInt(0);
 
+        //Close the cursor
+        cursor.close();
         //Close the database
         db.close();
 
@@ -180,6 +201,11 @@ public class DatabaseHelper extends SQLiteOpenHelper
             {
                 Log.d("ERROR: ","The user does not exist");
             }
+
+            //Close the cursor
+            cursor.close();
+            //Close the db
+            db.close();
         }
     }
 
@@ -220,6 +246,9 @@ public class DatabaseHelper extends SQLiteOpenHelper
                 cursor.moveToNext();
             }
         }
+
+        //Close the cursor
+        cursor.close();
         //Close the database
         db.close();
 
@@ -259,6 +288,8 @@ public class DatabaseHelper extends SQLiteOpenHelper
                 cursor.moveToNext();
             }
         }
+        //Close the cursor
+        cursor.close();
         //Close the database
         db.close();
 
@@ -286,6 +317,8 @@ public class DatabaseHelper extends SQLiteOpenHelper
                 cursor.moveToNext();
             }
         }
+        //Close the cursor
+        cursor.close();
         //Close the database
         db.close();
 
@@ -310,6 +343,8 @@ public class DatabaseHelper extends SQLiteOpenHelper
         //Get the count
         int count = cursor.getInt(0);
 
+        //Close the cursor
+        cursor.close();
         //Close the dbHelper
         db.close();
 
@@ -351,7 +386,9 @@ public class DatabaseHelper extends SQLiteOpenHelper
                 majorName = cursor.getString(0);
             }
 
-            //Close the dbHelper
+            //Close the cursor
+            cursor.close();
+            //Close the db
             db.close();
         }
         //If the majorId was not found in the table then there is no Major associated with it
@@ -392,7 +429,9 @@ public class DatabaseHelper extends SQLiteOpenHelper
             Log.d("ERROR: ", "Could not find a majorName matching that majorId");
         }
 
-        //Close the dbHelper
+        //Close the cursor
+        cursor.close();
+        //Close the db
         db.close();
 
         return majorId;
@@ -410,6 +449,17 @@ public class DatabaseHelper extends SQLiteOpenHelper
         db.close();
     }
 
+    public void updateStudentInDb(Student s)
+    {
+        //Get a writeable dbHelper version
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        //SQL INSERT statement
+        db.execSQL("UPDATE " + students_table_name + " SET email = '" + s.getEmail() + "', fname = '" + s.getfName() + "', lname = '" + s.getlName() + "', age = '" + s.getAge() + "', gpa = '" + s.getGpa() + "', majorId = '" + s.getMajorId() + "' WHERE username = '" + s.getUsername() + "';");
+        //Close the dbHelper
+        db.close();
+    }
+
     public void deleteStudentFromDb(Student s)
     {
         //Get a writeable dbHelper version
@@ -417,6 +467,51 @@ public class DatabaseHelper extends SQLiteOpenHelper
 
         //SQL DELETE statement
         db.execSQL("DELETE FROM " + students_table_name + " WHERE username = '" + s.getUsername() + "';");
+        //Close the dbHelper
+        db.close();
+    }
+
+    //Check if the username exists
+    public boolean majorExists(String majorName)
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String checkMajor = "SELECT count(majorName) FROM " + majors_table_name + " WHERE majorName = '" + majorName + "';";
+
+        //Query
+        Cursor cursor = db.rawQuery(checkMajor,null);
+
+        //Move the cursor to the first returned value (first row)
+        cursor.moveToFirst();
+
+        //We are looking for the username column, which is 0 since it is in the first column
+        //of the table
+        int count = cursor.getInt(0);
+
+        //Close the cursor
+        cursor.close();
+        //Close the database
+        db.close();
+
+        //If the count is anything but 0 then the username exists....
+        if (count != 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public void addMajorToDb(Major m)
+    {
+        //Get a writeable dbHelper version
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        //SQL INSERT statement
+        db.execSQL("INSERT INTO " + majors_table_name + " (majorPrefix, majorName) VALUES ('" + m.getMajorPrefix() + "','" + m.getMajorName() + "');");
+
         //Close the dbHelper
         db.close();
     }

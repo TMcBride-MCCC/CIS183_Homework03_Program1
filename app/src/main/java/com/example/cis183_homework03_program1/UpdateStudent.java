@@ -30,7 +30,7 @@ public class UpdateStudent extends AppCompatActivity
     //Create Java variables
     static ArrayList<Student> listOfStudents = new ArrayList<>();
     static ArrayList<Major> listOfMajors = new ArrayList<>();
-    EditText et_j_updatestudent_username;
+    TextView tv_j_updatestudent_username;
     EditText et_j_updatestudent_fname;
     EditText et_j_updatestudent_lname;
     EditText et_j_updatestudent_email;
@@ -55,7 +55,7 @@ public class UpdateStudent extends AppCompatActivity
         setContentView(R.layout.activity_update_student);
 
         //Connect JAVA to GUI
-        et_j_updatestudent_username = findViewById(R.id.et_v_updatestudent_username);
+        tv_j_updatestudent_username = findViewById(R.id.tv_v_updatestudent_username);
         et_j_updatestudent_fname = findViewById(R.id.et_v_updatestudent_fname);
         et_j_updatestudent_lname = findViewById(R.id.et_v_updatestudent_lname);
         et_j_updatestudent_email = findViewById(R.id.et_v_updatestudent_email);
@@ -144,7 +144,7 @@ public class UpdateStudent extends AppCompatActivity
         //This uses majorId to search the majors table for a corresponding majorName
         String majorName = dbHelper.getMajorName(majorId);
 
-        et_j_updatestudent_username.setText(username);
+        tv_j_updatestudent_username.setText(username);
         et_j_updatestudent_fname.setText(fname);
         et_j_updatestudent_lname.setText(lname);
         et_j_updatestudent_email.setText(email);
@@ -160,7 +160,6 @@ public class UpdateStudent extends AppCompatActivity
             public void onClick(View view)
             {
                 //Grab info from textboxes
-                String username = et_j_updatestudent_username.getText().toString();
                 String fname = et_j_updatestudent_fname.getText().toString();
                 String lname = et_j_updatestudent_lname.getText().toString();
                 String email = et_j_updatestudent_email.getText().toString();
@@ -174,7 +173,7 @@ public class UpdateStudent extends AppCompatActivity
                 int majorId = dbHelper.getMajorId(majorName);
 
                 //If any field is empty disable button
-                if (username.isEmpty() || fname.isEmpty() || lname.isEmpty() || email.isEmpty() || ageCheck.isEmpty() || gpaCheck.isEmpty() || majorName.isEmpty())
+                if (fname.isEmpty() || lname.isEmpty() || email.isEmpty() || ageCheck.isEmpty() || gpaCheck.isEmpty() || majorName.isEmpty())
                 {
                     Log.d("ERROR:", "A field is empty");
                     btn_j_updatestudent_update.setEnabled(false);
@@ -208,35 +207,36 @@ public class UpdateStudent extends AppCompatActivity
                 }
 
                 //If all fields are filled out make a new Student
-                if (!username.isEmpty() && !fname.isEmpty() && !lname.isEmpty() && !email.isEmpty() && !ageCheck.isEmpty() && !gpaCheck.isEmpty() && !majorName.isEmpty())
+                if (!fname.isEmpty() && !lname.isEmpty() && !email.isEmpty() && !ageCheck.isEmpty() && !gpaCheck.isEmpty() && !majorName.isEmpty())
                 {
                     //If all fields are filled out enable button
                     btn_j_updatestudent_update.setEnabled(true);
 
-                    Student studentToAdd = new Student();
+                    Student studentToChange = new Student();
 
-                    studentToAdd.setUsername(username);
-                    studentToAdd.setEmail(email);
-                    studentToAdd.setfName(fname);
-                    studentToAdd.setlName(lname);
-                    studentToAdd.setAge(age);
-                    studentToAdd.setGpa(gpa);
-                    studentToAdd.setMajorId(majorId);
+                    studentToChange.setUsername(student.getUsername());
+                    studentToChange.setEmail(email);
+                    studentToChange.setfName(fname);
+                    studentToChange.setlName(lname);
+                    studentToChange.setAge(age);
+                    studentToChange.setGpa(gpa);
+                    studentToChange.setMajorId(majorId);
 
-                    dbHelper.addStudentToDb(studentToAdd);
-                    Log.d("USER CHANGED: ", "" + studentToAdd.getUsername() + " details changed");
+                    dbHelper.updateStudentInDb(studentToChange); //CHANGE TO UPDATE
+                    Log.d("USER CHANGED: ", "" + studentToChange.getUsername() + " details changed");
 
-                    backToDetailsWithNewInfo();
+                    backToDetailsWithNewInfo(studentToChange);
                 }
             }
         });
     }
 
-    private void backToDetailsWithNewInfo()
+    private void backToDetailsWithNewInfo(Student sc)
     {
         intent_j_updatestudent_StudentDetails = new Intent(UpdateStudent.this,StudentDetails.class);
-        intent_j_updatestudent_StudentDetails.putExtra("student", student);
+        intent_j_updatestudent_StudentDetails.putExtra("sentFrom", "UpdateStudent");
+        intent_j_updatestudent_StudentDetails.putExtra("studentFromUpdate", student);
         startActivity(intent_j_updatestudent_StudentDetails);
-        Log.d("Student: ", "Student: " + student);
+        Log.d("Student: ", "Student: " + sc);
     }
 }

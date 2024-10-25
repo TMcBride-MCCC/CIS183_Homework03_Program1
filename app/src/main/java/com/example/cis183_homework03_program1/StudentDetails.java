@@ -30,6 +30,7 @@ public class StudentDetails extends AppCompatActivity
     Button btn_j_details_back;
     BottomNavigationView bnv_j_details_bottomNav;
     Intent intent_j_main_UpdateStudent;
+    Intent cameFrom;
 
     DatabaseHelper dbHelper;
     Student student;
@@ -54,22 +55,29 @@ public class StudentDetails extends AppCompatActivity
 
         dbHelper = new DatabaseHelper(this);
 
-        //Grab the Student info
-        Intent intent = getIntent();
-        student = (Student) intent.getSerializableExtra("student");
-        if (student == null)
+        //Figure out who sent the data
+        cameFrom = getIntent();
+        String sentFrom = cameFrom.getStringExtra("sentFrom");
+
+        if (sentFrom == null)
         {
             Log.e("StudentDetails", "Student object is null");
         }
         else
         {
-            Log.d("StudentDetails", "Student retrieved: " + student.getUsername());
+            if (sentFrom.equals("MainActivity"))
+            {
+                student = (Student) cameFrom.getSerializableExtra("studentFromMain");
+                loadStudentData();
+            }
+            else if (sentFrom.equals("UpdateStudent"))
+            {
+                student = (Student) cameFrom.getSerializableExtra("studentFromUpdate");
+                loadStudentData();
+            }
         }
 
         bottomNavListener();
-
-        //Fill in student info
-        loadStudentData();
 
         updateButtonOnClickListener();
         backButtonOnClickListener();
