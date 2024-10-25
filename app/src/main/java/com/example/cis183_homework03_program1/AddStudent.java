@@ -221,7 +221,7 @@ public class AddStudent extends AppCompatActivity
                     studentToAdd.setMajorId(majorId);
 
                     dbHelper.addStudentToDb(studentToAdd);
-                    Log.d("USER ADDED: ", "" + studentToAdd.getUsername() + " was added to the dbHelper");
+                    Log.d("USER ADDED: ", "" + studentToAdd.getUsername() + " was added to the db");
 
                     //Clear all et
                     et_j_addstudent_username.getText().clear();

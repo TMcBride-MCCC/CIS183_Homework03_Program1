@@ -17,7 +17,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
 
     public DatabaseHelper (Context c)
     {
-        super(c, database_name, null, 2);
+        super(c, database_name, null, 3);
     }
     @Override
     public void onCreate(SQLiteDatabase db)
