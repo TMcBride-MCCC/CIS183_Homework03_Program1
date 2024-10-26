@@ -53,6 +53,7 @@ public class AddMajor extends AppCompatActivity
         //Set the nav bar icon
         bnv_j_addmajor_bottomNav.setSelectedItemId(R.id.nav_addMajor);
 
+
         bottomNavListener();
         checkIfMajorExists();
         addMajorButtonOnClickListener();

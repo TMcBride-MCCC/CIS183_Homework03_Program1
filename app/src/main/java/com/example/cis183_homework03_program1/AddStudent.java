@@ -221,7 +221,7 @@ public class AddStudent extends AppCompatActivity
 
     private void addStudent(String u, String f, String l, String e, int a, float g, int m)
     {
-        //If all fields are filled out enable button
+        //Enable button
         btn_j_addstudent_enroll.setEnabled(true);
 
         Student studentToAdd = new Student();

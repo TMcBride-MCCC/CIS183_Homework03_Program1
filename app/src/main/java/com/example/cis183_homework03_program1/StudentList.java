@@ -1,5 +1,7 @@
 package com.example.cis183_homework03_program1;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 
 public class StudentList
@@ -48,9 +50,15 @@ public class StudentList
 
     public void updateStudent(Student studentToUpdate)
     {
-        int indexOfStudent = students.indexOf(studentToUpdate);
-        students.set(indexOfStudent, studentToUpdate);
-        notifyAdapterToRefresh();
+        for (int i = 0; i < students.size(); i++)
+        {
+            if (students.get(i).getUsername().equals(studentToUpdate.getUsername()))
+            {
+                students.set(i, studentToUpdate);
+                notifyAdapterToRefresh();
+                Log.d("StudentList_updateStudent", "This student has been updated: " + studentToUpdate.getUsername());
+            }
+        }
     }
 
     public void notifyAdapterToRefresh()

@@ -227,18 +227,9 @@ public class UpdateStudent extends AppCompatActivity
                     StudentList.getInstance().updateStudent(studentToChange);
                     Log.d("USER CHANGED: ", "" + studentToChange.getUsername() + " details changed");
 
-                    backToDetailsWithNewInfo(studentToChange);
+                    startActivity(new Intent(UpdateStudent.this, MainActivity.class));
                 }
             }
         });
-    }
-
-    private void backToDetailsWithNewInfo(Student sc)
-    {
-        intent_j_updatestudent_StudentDetails = new Intent(UpdateStudent.this,StudentDetails.class);
-        intent_j_updatestudent_StudentDetails.putExtra("sentFrom", "UpdateStudent");
-        intent_j_updatestudent_StudentDetails.putExtra("studentFromUpdate", student);
-        startActivity(intent_j_updatestudent_StudentDetails);
-        Log.d("Student: ", "Student: " + sc);
     }
 }
