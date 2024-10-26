@@ -72,7 +72,11 @@ public class MainActivity extends AppCompatActivity
     private void fillListView()
     {
         adapter_home = new HomeListAdapter(this, StudentList.getInstance().getStudents());
+        StudentList.getInstance().setStudentListAdapter(adapter_home);
         lv_j_main_listOfStudents.setAdapter(adapter_home);
+        adapter_home.notifyDataSetChanged();
+        Log.d("StudentListSize", "Numer of students in list is: " + StudentList.getInstance().getStudents().size());
+        Log.d("fillListView", "Numbwe of students in adapter: " + adapter_home.getCount());
     }
 
     private void bottomNavListener()
@@ -146,5 +150,13 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
+    }
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        StudentList.getInstance().initStudentList(dbHelper.fillStudentArrayList());
+        fillListView();
     }
 }

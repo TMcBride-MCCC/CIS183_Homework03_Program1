@@ -234,10 +234,14 @@ public class AddStudent extends AppCompatActivity
         studentToAdd.setGpa(g);
         studentToAdd.setMajorId(m);
 
-        //Add student to list
-        StudentList.getInstance().getStudents().add(studentToAdd);
         //Add student to the db
         dbHelper.addStudentToDb(studentToAdd);
+
+        //Update StudentList
+        StudentList.getInstance().initStudentList(dbHelper.fillStudentArrayList());
+        //Notify the adapter
+        StudentList.getInstance().notifyAdapterToRefresh();
+        //Debug code
         Log.d("USER ADDED: ", "" + studentToAdd.getUsername() + " was added");
     }
 

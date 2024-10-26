@@ -6,6 +6,7 @@ public class StudentList
 {
     private static StudentList studentList;
     private ArrayList<Student> students;
+    private HomeListAdapter studentListAdapter;
 
     private StudentList()
     {
@@ -31,11 +32,32 @@ public class StudentList
     public void initStudentList(ArrayList<Student> students)
     {
         this.students = students;
+        notifyAdapterToRefresh();
+    }
+
+    public void setStudentListAdapter(HomeListAdapter adapter)
+    {
+        this.studentListAdapter = adapter;
+    }
+
+    public void addStudent(Student studentToAdd)
+    {
+        students.add(studentToAdd);
+        notifyAdapterToRefresh();
     }
 
     public void updateStudent(Student studentToUpdate)
     {
         int indexOfStudent = students.indexOf(studentToUpdate);
         students.set(indexOfStudent, studentToUpdate);
+        notifyAdapterToRefresh();
+    }
+
+    public void notifyAdapterToRefresh()
+    {
+        if (studentListAdapter != null)
+        {
+            studentListAdapter.notifyDataSetChanged();
+        }
     }
 }

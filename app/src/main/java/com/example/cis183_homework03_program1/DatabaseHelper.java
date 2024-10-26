@@ -17,7 +17,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
 
     public DatabaseHelper (Context c)
     {
-        super(c, database_name, null, 3);
+        super(c, database_name, null, 7);
     }
     @Override
     public void onCreate(SQLiteDatabase db)
@@ -56,7 +56,9 @@ public class DatabaseHelper extends SQLiteOpenHelper
     public void initAllTables()
     {
         initMajors();
+        Log.d("initALLTables: ","Total majors in db: " +countTableRecords(majors_table_name));
         initStudents();
+        Log.d("initALLTables: ","Total students in db: " +countTableRecords(students_table_name));
     }
 
     public int countTableRecords(String tablename)
@@ -130,7 +132,6 @@ public class DatabaseHelper extends SQLiteOpenHelper
             //close the database
             db.close();
         }
-
     }
 
     //Check if the username exists
@@ -225,6 +226,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
         {
             //Move the cursor
             cursor.moveToFirst();
+
             for (int i = 0; i < cursor.getCount(); i++)
             {
                 //Make a new student memory chunk
@@ -242,16 +244,16 @@ public class DatabaseHelper extends SQLiteOpenHelper
                 //Add the student
                 listOfStudents.add(student);
 
+                Log.d("fillStudentArrayList", "Student " + (i + 1) + ": " + student.getUsername());
+
                 //Move the cursor
                 cursor.moveToNext();
             }
+
+            //Close the database
+            db.close();
         }
-
-        //Close the cursor
-        cursor.close();
-        //Close the database
-        db.close();
-
+        Log.d("fillStudentArrayList", "Total students filled: " + listOfStudents.size());
         return listOfStudents;
     }
 
@@ -288,8 +290,6 @@ public class DatabaseHelper extends SQLiteOpenHelper
                 cursor.moveToNext();
             }
         }
-        //Close the cursor
-        cursor.close();
         //Close the database
         db.close();
 
@@ -317,8 +317,6 @@ public class DatabaseHelper extends SQLiteOpenHelper
                 cursor.moveToNext();
             }
         }
-        //Close the cursor
-        cursor.close();
         //Close the database
         db.close();
 
@@ -386,8 +384,6 @@ public class DatabaseHelper extends SQLiteOpenHelper
                 majorName = cursor.getString(0);
             }
 
-            //Close the cursor
-            cursor.close();
             //Close the db
             db.close();
         }
@@ -429,8 +425,6 @@ public class DatabaseHelper extends SQLiteOpenHelper
             Log.d("ERROR: ", "Could not find a majorName matching that majorId");
         }
 
-        //Close the cursor
-        cursor.close();
         //Close the db
         db.close();
 
@@ -488,8 +482,6 @@ public class DatabaseHelper extends SQLiteOpenHelper
         //of the table
         int count = cursor.getInt(0);
 
-        //Close the cursor
-        cursor.close();
         //Close the database
         db.close();
 
